@@ -39,7 +39,7 @@ Le **Jeu du Cavalier** est un puzzle stratégique où le joueur doit visiter tou
    ```
 
 3. **Lancez le jeu**
-   - Ouvrez `index.html` dans votre navigateur
+   - Ouvrez `index.html` ou `http://localhost:3001/` dans votre navigateur
 
 
 ## 📁 Structure du Projet
