@@ -20,6 +20,10 @@ app.get('/', async (req, res) => {
     res.sendFile(path.join(__dirname,'/index.html'));
 });
 
+app.get('/sounds/:file', async (req,res) => {
+    res.sendFile(path.join(__dirname,path.join('/sounds/',req.params.file)));
+});
+
 // Lire les données
 async function readGames() {
     try {
