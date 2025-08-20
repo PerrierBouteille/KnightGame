@@ -1,0 +1,1487 @@
+[
+  {
+    "id": 1755541420017,
+    "gameId": "#5465",
+    "player": "dsqdq",
+    "result": "Win",
+    "resets": 0,
+    "points": 246,
+    "gridSize": 5,
+    "timeElapsed": 46,
+    "timestamp": "2025-08-18T18:23:39.935Z"
+  },
+  {
+    "id": 1755543824843,
+    "gameId": "#7144",
+    "player": "dqsdqs",
+    "result": "Win",
+    "resets": 0,
+    "points": 2650,
+    "gridSize": 5,
+    "timeElapsed": 29,
+    "finalGrid": [
+      [
+        {
+          "visited": true,
+          "order": 1
+        },
+        {
+          "visited": true,
+          "order": 14
+        },
+        {
+          "visited": true,
+          "order": 9
+        },
+        {
+          "visited": true,
+          "order": 20
+        },
+        {
+          "visited": true,
+          "order": 3
+        }
+      ],
+      [
+        {
+          "visited": true,
+          "order": 24
+        },
+        {
+          "visited": true,
+          "order": 19
+        },
+        {
+          "visited": true,
+          "order": 2
+        },
+        {
+          "visited": true,
+          "order": 15
+        },
+        {
+          "visited": true,
+          "order": 10
+        }
+      ],
+      [
+        {
+          "visited": true,
+          "order": 13
+        },
+        {
+          "visited": true,
+          "order": 8
+        },
+        {
+          "visited": true,
+          "order": 25
+        },
+        {
+          "visited": true,
+          "order": 4
+        },
+        {
+          "visited": true,
+          "order": 21
+        }
+      ],
+      [
+        {
+          "visited": true,
+          "order": 18
+        },
+        {
+          "visited": true,
+          "order": 23
+        },
+        {
+          "visited": true,
+          "order": 6
+        },
+        {
+          "visited": true,
+          "order": 11
+        },
+        {
+          "visited": true,
+          "order": 16
+        }
+      ],
+      [
+        {
+          "visited": true,
+          "order": 7
+        },
+        {
+          "visited": true,
+          "order": 12
+        },
+        {
+          "visited": true,
+          "order": 17
+        },
+        {
+          "visited": true,
+          "order": 22
+        },
+        {
+          "visited": true,
+          "order": 5
+        }
+      ]
+    ],
+    "timestamp": "2025-08-18T19:03:44.788Z"
+  },
+  {
+    "id": 1755544989771,
+    "gameId": "#4966",
+    "player": "dqs",
+    "result": "Loss",
+    "resets": 0,
+    "points": -1,
+    "gridSize": 12,
+    "timeElapsed": 300,
+    "finalGrid": [
+      [
+        {
+          "visited": true,
+          "order": 1
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": true,
+          "order": 5
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": true,
+          "order": 9
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        }
+      ],
+      [
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": true,
+          "order": 2
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": true,
+          "order": 6
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": true,
+          "order": 10
+        },
+        {
+          "visited": false,
+          "order": null
+        }
+      ],
+      [
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": true,
+          "order": 4
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": true,
+          "order": 8
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        }
+      ],
+      [
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": true,
+          "order": 3
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": true,
+          "order": 7
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        }
+      ],
+      [
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        }
+      ],
+      [
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        }
+      ],
+      [
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        }
+      ],
+      [
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        }
+      ],
+      [
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        }
+      ],
+      [
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        }
+      ],
+      [
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        }
+      ],
+      [
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        },
+        {
+          "visited": false,
+          "order": null
+        }
+      ]
+    ],
+    "timestamp": "2025-08-18T19:23:09.398Z"
+  },
+  {
+    "id": 1755547011002,
+    "gameId": "#7653",
+    "player": "dsds",
+    "result": "Win",
+    "resets": 0,
+    "points": 2,
+    "gridSize": 5,
+    "timeElapsed": 30,
+    "finalGrid": [
+      [
+        {
+          "visited": true,
+          "order": 1
+        },
+        {
+          "visited": true,
+          "order": 14
+        },
+        {
+          "visited": true,
+          "order": 9
+        },
+        {
+          "visited": true,
+          "order": 20
+        },
+        {
+          "visited": true,
+          "order": 3
+        }
+      ],
+      [
+        {
+          "visited": true,
+          "order": 24
+        },
+        {
+          "visited": true,
+          "order": 19
+        },
+        {
+          "visited": true,
+          "order": 2
+        },
+        {
+          "visited": true,
+          "order": 15
+        },
+        {
+          "visited": true,
+          "order": 10
+        }
+      ],
+      [
+        {
+          "visited": true,
+          "order": 13
+        },
+        {
+          "visited": true,
+          "order": 8
+        },
+        {
+          "visited": true,
+          "order": 25
+        },
+        {
+          "visited": true,
+          "order": 4
+        },
+        {
+          "visited": true,
+          "order": 21
+        }
+      ],
+      [
+        {
+          "visited": true,
+          "order": 18
+        },
+        {
+          "visited": true,
+          "order": 23
+        },
+        {
+          "visited": true,
+          "order": 6
+        },
+        {
+          "visited": true,
+          "order": 11
+        },
+        {
+          "visited": true,
+          "order": 16
+        }
+      ],
+      [
+        {
+          "visited": true,
+          "order": 7
+        },
+        {
+          "visited": true,
+          "order": 12
+        },
+        {
+          "visited": true,
+          "order": 17
+        },
+        {
+          "visited": true,
+          "order": 22
+        },
+        {
+          "visited": true,
+          "order": 5
+        }
+      ]
+    ],
+    "timestamp": "2025-08-18T19:56:50.947Z"
+  },
+  {
+    "id": 1755547354972,
+    "gameId": "#8826",
+    "player": "dqs",
+    "result": "Win",
+    "resets": 0,
+    "points": 2,
+    "gridSize": 5,
+    "timeElapsed": 31,
+    "finalGrid": [
+      [
+        {
+          "visited": true,
+          "order": 1
+        },
+        {
+          "visited": true,
+          "order": 14
+        },
+        {
+          "visited": true,
+          "order": 9
+        },
+        {
+          "visited": true,
+          "order": 20
+        },
+        {
+          "visited": true,
+          "order": 3
+        }
+      ],
+      [
+        {
+          "visited": true,
+          "order": 24
+        },
+        {
+          "visited": true,
+          "order": 19
+        },
+        {
+          "visited": true,
+          "order": 2
+        },
+        {
+          "visited": true,
+          "order": 15
+        },
+        {
+          "visited": true,
+          "order": 10
+        }
+      ],
+      [
+        {
+          "visited": true,
+          "order": 13
+        },
+        {
+          "visited": true,
+          "order": 8
+        },
+        {
+          "visited": true,
+          "order": 25
+        },
+        {
+          "visited": true,
+          "order": 4
+        },
+        {
+          "visited": true,
+          "order": 21
+        }
+      ],
+      [
+        {
+          "visited": true,
+          "order": 18
+        },
+        {
+          "visited": true,
+          "order": 23
+        },
+        {
+          "visited": true,
+          "order": 6
+        },
+        {
+          "visited": true,
+          "order": 11
+        },
+        {
+          "visited": true,
+          "order": 16
+        }
+      ],
+      [
+        {
+          "visited": true,
+          "order": 7
+        },
+        {
+          "visited": true,
+          "order": 12
+        },
+        {
+          "visited": true,
+          "order": 17
+        },
+        {
+          "visited": true,
+          "order": 22
+        },
+        {
+          "visited": true,
+          "order": 5
+        }
+      ]
+    ],
+    "timestamp": "2025-08-18T20:02:34.922Z"
+  },
+  {
+    "id": 1755547619808,
+    "gameId": "#3712",
+    "player": "dsqdq",
+    "result": "Win",
+    "resets": 0,
+    "points": 24,
+    "gridSize": 5,
+    "timeElapsed": 38,
+    "finalGrid": [
+      [
+        {
+          "visited": true,
+          "order": 1
+        },
+        {
+          "visited": true,
+          "order": 14
+        },
+        {
+          "visited": true,
+          "order": 9
+        },
+        {
+          "visited": true,
+          "order": 20
+        },
+        {
+          "visited": true,
+          "order": 3
+        }
+      ],
+      [
+        {
+          "visited": true,
+          "order": 24
+        },
+        {
+          "visited": true,
+          "order": 19
+        },
+        {
+          "visited": true,
+          "order": 2
+        },
+        {
+          "visited": true,
+          "order": 15
+        },
+        {
+          "visited": true,
+          "order": 10
+        }
+      ],
+      [
+        {
+          "visited": true,
+          "order": 13
+        },
+        {
+          "visited": true,
+          "order": 8
+        },
+        {
+          "visited": true,
+          "order": 25
+        },
+        {
+          "visited": true,
+          "order": 4
+        },
+        {
+          "visited": true,
+          "order": 21
+        }
+      ],
+      [
+        {
+          "visited": true,
+          "order": 18
+        },
+        {
+          "visited": true,
+          "order": 23
+        },
+        {
+          "visited": true,
+          "order": 6
+        },
+        {
+          "visited": true,
+          "order": 11
+        },
+        {
+          "visited": true,
+          "order": 16
+        }
+      ],
+      [
+        {
+          "visited": true,
+          "order": 7
+        },
+        {
+          "visited": true,
+          "order": 12
+        },
+        {
+          "visited": true,
+          "order": 17
+        },
+        {
+          "visited": true,
+          "order": 22
+        },
+        {
+          "visited": true,
+          "order": 5
+        }
+      ]
+    ],
+    "timestamp": "2025-08-18T20:06:59.765Z"
+  },
+  {
+    "id": 1755613560958,
+    "gameId": "#6565",
+    "player": "dqs",
+    "result": "Win",
+    "resets": 0,
+    "points": 1,
+    "gridSize": 5,
+    "timeElapsed": 34,
+    "finalGrid": [
+      [
+        {
+          "visited": true,
+          "order": 1
+        },
+        {
+          "visited": true,
+          "order": 14
+        },
+        {
+          "visited": true,
+          "order": 9
+        },
+        {
+          "visited": true,
+          "order": 20
+        },
+        {
+          "visited": true,
+          "order": 3
+        }
+      ],
+      [
+        {
+          "visited": true,
+          "order": 24
+        },
+        {
+          "visited": true,
+          "order": 19
+        },
+        {
+          "visited": true,
+          "order": 2
+        },
+        {
+          "visited": true,
+          "order": 15
+        },
+        {
+          "visited": true,
+          "order": 10
+        }
+      ],
+      [
+        {
+          "visited": true,
+          "order": 13
+        },
+        {
+          "visited": true,
+          "order": 8
+        },
+        {
+          "visited": true,
+          "order": 25
+        },
+        {
+          "visited": true,
+          "order": 4
+        },
+        {
+          "visited": true,
+          "order": 21
+        }
+      ],
+      [
+        {
+          "visited": true,
+          "order": 18
+        },
+        {
+          "visited": true,
+          "order": 23
+        },
+        {
+          "visited": true,
+          "order": 6
+        },
+        {
+          "visited": true,
+          "order": 11
+        },
+        {
+          "visited": true,
+          "order": 16
+        }
+      ],
+      [
+        {
+          "visited": true,
+          "order": 7
+        },
+        {
+          "visited": true,
+          "order": 12
+        },
+        {
+          "visited": true,
+          "order": 17
+        },
+        {
+          "visited": true,
+          "order": 22
+        },
+        {
+          "visited": true,
+          "order": 5
+        }
+      ]
+    ],
+    "timestamp": "2025-08-19T14:26:00.799Z"
+  },
+  {
+    "id": 1755614229602,
+    "gameId": "#0895",
+    "player": "dqsdq",
+    "result": "Win",
+    "resets": 0,
+    "points": 1,
+    "gridSize": 5,
+    "timeElapsed": 15,
+    "finalGrid": [
+      [
+        {
+          "visited": true,
+          "order": 1
+        },
+        {
+          "visited": true,
+          "order": 14
+        },
+        {
+          "visited": true,
+          "order": 9
+        },
+        {
+          "visited": true,
+          "order": 20
+        },
+        {
+          "visited": true,
+          "order": 3
+        }
+      ],
+      [
+        {
+          "visited": true,
+          "order": 24
+        },
+        {
+          "visited": true,
+          "order": 19
+        },
+        {
+          "visited": true,
+          "order": 2
+        },
+        {
+          "visited": true,
+          "order": 15
+        },
+        {
+          "visited": true,
+          "order": 10
+        }
+      ],
+      [
+        {
+          "visited": true,
+          "order": 13
+        },
+        {
+          "visited": true,
+          "order": 8
+        },
+        {
+          "visited": true,
+          "order": 25
+        },
+        {
+          "visited": true,
+          "order": 4
+        },
+        {
+          "visited": true,
+          "order": 21
+        }
+      ],
+      [
+        {
+          "visited": true,
+          "order": 18
+        },
+        {
+          "visited": true,
+          "order": 23
+        },
+        {
+          "visited": true,
+          "order": 6
+        },
+        {
+          "visited": true,
+          "order": 11
+        },
+        {
+          "visited": true,
+          "order": 16
+        }
+      ],
+      [
+        {
+          "visited": true,
+          "order": 7
+        },
+        {
+          "visited": true,
+          "order": 12
+        },
+        {
+          "visited": true,
+          "order": 17
+        },
+        {
+          "visited": true,
+          "order": 22
+        },
+        {
+          "visited": true,
+          "order": 5
+        }
+      ]
+    ],
+    "timestamp": "2025-08-19T14:37:09.565Z"
+  },
+  {
+    "id": 1755614339510,
+    "gameId": "#3949",
+    "player": "dqsdq",
+    "result": "Win",
+    "resets": 0,
+    "points": 12,
+    "gridSize": 5,
+    "timeElapsed": 14,
+    "finalGrid": [
+      [
+        {
+          "visited": true,
+          "order": 1
+        },
+        {
+          "visited": true,
+          "order": 14
+        },
+        {
+          "visited": true,
+          "order": 9
+        },
+        {
+          "visited": true,
+          "order": 20
+        },
+        {
+          "visited": true,
+          "order": 3
+        }
+      ],
+      [
+        {
+          "visited": true,
+          "order": 24
+        },
+        {
+          "visited": true,
+          "order": 19
+        },
+        {
+          "visited": true,
+          "order": 2
+        },
+        {
+          "visited": true,
+          "order": 15
+        },
+        {
+          "visited": true,
+          "order": 10
+        }
+      ],
+      [
+        {
+          "visited": true,
+          "order": 13
+        },
+        {
+          "visited": true,
+          "order": 8
+        },
+        {
+          "visited": true,
+          "order": 25
+        },
+        {
+          "visited": true,
+          "order": 4
+        },
+        {
+          "visited": true,
+          "order": 21
+        }
+      ],
+      [
+        {
+          "visited": true,
+          "order": 18
+        },
+        {
+          "visited": true,
+          "order": 23
+        },
+        {
+          "visited": true,
+          "order": 6
+        },
+        {
+          "visited": true,
+          "order": 11
+        },
+        {
+          "visited": true,
+          "order": 16
+        }
+      ],
+      [
+        {
+          "visited": true,
+          "order": 7
+        },
+        {
+          "visited": true,
+          "order": 12
+        },
+        {
+          "visited": true,
+          "order": 17
+        },
+        {
+          "visited": true,
+          "order": 22
+        },
+        {
+          "visited": true,
+          "order": 5
+        }
+      ]
+    ],
+    "timestamp": "2025-08-19T14:38:59.482Z"
+  }
+]

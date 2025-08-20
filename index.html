@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu du Cavalier</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        chessLight: '#f0d9b5',
+                        chessDark: '#b58863',
+                        knight: '#8b4513',
+                        visited: '#4ade80',
+                        current: '#3b82f6',
+                        danger: '#ef4444',
+                        primary: '#8b5cf6',
+                        secondary: '#ec4899',
+                        dark: '#0f172a'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+        }
+        
+        .game-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(139, 92, 246, 0.7);
+        }
+        
+        .game-subtitle {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+        }
+        
+        .pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { 
+                box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+            }
+            50% { 
+                box-shadow: 0 0 30px rgba(139, 92, 246, 0.8);
+            }
+        }
+        
+        .knight-icon {
+            font-size: 1.8rem;
+            color: #f8fafc;
+            text-shadow: 0 0 8px rgba(0,0,0,0.7);
+            transition: all 0.3s ease;
+        }
+        
+        .visited-number {
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: #0f172a;
+            text-shadow: 0 0 3px rgba(255,255,255,0.8);
+        }
+        
+        .invalid-move {
+            animation: shake 0.5s;
+            background: linear-gradient(135deg, #ef4444 0%, #f87171 100%) !important;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        .timer-critical {
+            color: #ef4444;
+            animation: pulse 1s infinite;
+        }
+        
+        .cell {
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .cell:hover {
+            transform: scale(1.05);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #8b5cf6 0%, #c084fc 100%);
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(139, 92, 246, 0.6);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #ec4899 0%, #f9a8d4 100%);
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(236, 72, 153, 0.6);
+        }
+        
+        .form-control {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3);
+            outline: none;
+        }
+        
+        .stats-card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .grid-preview {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .win-animation {
+            animation: winPulse 2s infinite;
+        }
+        
+        @keyframes winPulse {
+            0%, 100% { 
+                box-shadow: 0 0 15px rgba(72, 199, 116, 0.5);
+            }
+            50% { 
+                box-shadow: 0 0 30px rgba(72, 199, 116, 0.8);
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen text-white">
+    <div class="relative"> <!--overflow-hidden-->
+        <!-- Animated background elements -->
+        <div class="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-purple-500 opacity-20 blur-3xl"></div>
+        <div class="absolute -bottom-0 -left-40 w-80 h-80 rounded-full bg-pink-500 opacity-20 blur-3xl"></div> <!-- -bottom-40 -->
+        
+        <!-- Loader -->
+        <div id="loader" class="fixed inset-0 bg-gray-900 flex items-center justify-center z-50">
+            <div class="text-center">
+                <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-purple-500 mx-auto mb-4"></div>
+                <p class="text-xl text-white">Connexion au serveur...</p>
+            </div>
+        </div>
+        
+        <div id="root" class="container mx-auto px-4 py-8 relative z-10"></div>
+    </div>
+
+    <script>
+        // Configuration du backend (remplacez par votre URL)
+        const API_BASE_URL = 'http://localhost:3001/api';
+
+        // Function to check API connection
+        async function checkApiConnection() {
+            const loader = document.getElementById('loader');
+            try {
+                const response = await fetch(`${API_BASE_URL}/health`, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                if (response.ok) {
+                    // API is connected, hide loader and initialize app
+                    setTimeout(() => {
+                        loader.style.display = 'none';
+                        render();
+                    }, 500); // Small delay for better UX
+                } else {
+                    throw new Error('API not responding');
+                }
+            } catch (error) {
+                // API connection failed, show error
+                loader.innerHTML = `
+                    <div class="text-center p-6 bg-gray-800 rounded-xl max-w-md">
+                        <div class="text-5xl mb-4">⚠️</div>
+                        <h2 class="text-2xl font-bold text-red-400 mb-2">Connexion échouée</h2>
+                        <p class="text-gray-300 mb-4">Impossible de se connecter au serveur de jeu.</p>
+                        <p class="text-gray-400 text-sm mb-6">Veuillez vérifier que le serveur est démarré et accessible.</p>
+                        <button onclick="location.reload()" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-medium">
+                            Réessayer
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        // Call API connection check on load
+        window.addEventListener('DOMContentLoaded', checkApiConnection);
+
+        // Fonction pour générer un ID de partie unique
+        function generateGameId() {
+            return '#' + Math.floor(Math.random() * 9999).toString().padStart(4, '0');
+        }
+
+        // Fonction pour sauvegarder un résultat
+        async function saveGameResult(gameId, player, result, resets, points, gridSize, timeElapsed, finalGrid) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/games`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        gameId,
+                        player,
+                        result,
+                        resets,
+                        points,
+                        gridSize,
+                        timeElapsed,
+                        finalGrid,
+                        timestamp: new Date().toISOString()
+                    })
+                });
+                return await response.json();
+            } catch (error) {
+                console.error('Erreur lors de la sauvegarde:', error);
+            }
+        }
+
+        // Fonction pour récupérer tous les logs
+        async function fetchGameLogs() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/games`);
+                return await response.json();
+            } catch (error) {
+                console.error('Erreur lors de la récupération des logs:', error);
+                return [];
+            }
+        }
+
+        // État de l'application
+        const state = {
+            view: 'home', // 'home', 'game', 'result', 'logs', 'cheater'
+            player: {
+                pseudo: '',
+                bet: 0
+            },
+            board: {
+                size: 5,
+                grid: [],
+                visited: [],
+                current: null,
+                moveCount: 0
+            },
+            timer: {
+                timeLeft: 300,
+                interval: null,
+                isCritical: false
+            },
+            result: {
+                won: false,
+                message: '',
+                tokens: 0
+            },
+            game: {
+                id: null,
+                resetCount: 0
+            },
+            logs: []
+        };
+
+        // Fonction pour initialiser la grille
+        function initBoard() {
+            const size = state.board.size;
+            const grid = [];
+            for (let row = 0; row < size; row++) {
+                const rowArray = [];
+                for (let col = 0; col < size; col++) {
+                    rowArray.push({
+                        row,
+                        col,
+                        visited: false,
+                        visitOrder: null
+                    });
+                }
+                grid.push(rowArray);
+            }
+            state.board.grid = grid;
+            state.board.visited = [];
+            state.board.current = null;
+            state.board.moveCount = 0;
+        }
+
+        // Fonction pour démarrer le jeu
+        function startGame() {
+            state.view = 'game';
+            state.timer.timeLeft = 300;
+            state.timer.isCritical = false;
+            state.game.id = generateGameId();
+            state.game.resetCount = 0;
+            initBoard();
+            startTimer();
+            render();
+        }
+
+        // Fonction pour démarrer le timer
+        function startTimer() {
+            if (state.timer.interval) {
+                clearInterval(state.timer.interval);
+            }
+            state.timer.interval = setInterval(() => {
+                state.timer.timeLeft--;
+                if (state.timer.timeLeft <= 30) {
+                    state.timer.isCritical = true;
+                }
+                if (state.timer.timeLeft <= 0) {
+                    endGame(false);
+                }
+                // Only update the timer display instead of re-rendering everything
+                updateTimerDisplay();
+            }, 1000);
+        }
+
+        // Function to update only the timer display
+        function updateTimerDisplay() {
+            const timerElement = document.querySelector('.timer-display');
+            if (timerElement) {
+                timerElement.textContent = formatTime(state.timer.timeLeft);
+                if (state.timer.isCritical) {
+                    timerElement.classList.add('timer-critical');
+                }
+            }
+        }
+
+        // Function to update game info (cases visited counter)
+        function updateGameInfo() {
+            const infoElement = document.querySelector('.cases-visited');
+            if (infoElement) {
+                infoElement.textContent = `Cases visitées: ${state.board.moveCount}/${state.board.size * state.board.size}`;
+            }
+        }
+
+        // Function to update only the grid display
+        function updateGridDisplay() {
+            for (let row = 0; row < state.board.size; row++) {
+                for (let col = 0; col < state.board.size; col++) {
+                    const cell = state.board.grid[row][col];
+                    const cellElement = document.getElementById(`cell-${row}-${col}`);
+                    
+                    if (cellElement) {
+                        // Reset classes
+                        cellElement.className = `cell w-12 h-12 md:w-16 md:h-16 flex items-center justify-center relative ${(row + col) % 2 === 0 ? 'bg-chessLight' : 'bg-chessDark'} cursor-pointer transition-all duration-200 hover:opacity-90`;
+                        
+                        // Add visited class if needed
+                        if (cell.visited) {
+                            cellElement.classList.add('bg-visited');
+                        }
+                        
+                        
+                        // Update cell content
+                        let content = '';
+                        if (cell.visited) {
+                            content += `<span class="visited-number">${cell.visitOrder}</span>`;
+                        }
+                        if (state.board.current && state.board.current.row === row && state.board.current.col === col) {
+                            content += '<div class="knight-icon">🐴</div>';
+                        }
+                        cellElement.innerHTML = content;
+                    }
+                }
+            }
+        }
+
+        // Fonction pour vérifier si un mouvement est valide
+        function isValidMove(fromRow, fromCol, toRow, toCol) {
+            const rowDiff = Math.abs(toRow - fromRow);
+            const colDiff = Math.abs(toCol - fromCol);
+            
+            // Mouvement en L: 2 dans une direction, 1 dans l'autre
+            return (rowDiff === 2 && colDiff === 1) || (rowDiff === 1 && colDiff === 2);
+        }
+
+        // Fonction pour vérifier s'il reste des mouvements valides
+        function hasValidMoves() {
+            if (!state.board.current) return true; // Pas encore de position de départ
+            
+            const { row: currentRow, col: currentCol } = state.board.current;
+            const size = state.board.size;
+            
+            // Vérifier toutes les positions possibles
+            for (let row = 0; row < size; row++) {
+                for (let col = 0; col < size; col++) {
+                    if (!state.board.grid[row][col].visited && 
+                        isValidMove(currentRow, currentCol, row, col)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        // Fonction pour effectuer un mouvement
+        function makeMove(row, col) {
+            // Si c'est le premier mouvement (choix de la position de départ)
+            if (!state.board.current) {
+                state.board.current = { row, col };
+                state.board.grid[row][col].visited = true;
+                state.board.grid[row][col].visitOrder = ++state.board.moveCount;
+                state.board.visited.push({ row, col });
+                updateGridDisplay();
+                updateGameInfo();
+                return;
+            }
+            
+            const { row: currentRow, col: currentCol } = state.board.current;
+            
+            // Vérifier si le mouvement est valide
+            if (isValidMove(currentRow, currentCol, row, col) && 
+                !state.board.grid[row][col].visited) {
+                state.board.current = { row, col };
+                state.board.grid[row][col].visited = true;
+                state.board.grid[row][col].visitOrder = ++state.board.moveCount;
+                state.board.visited.push({ row, col });
+
+                playSound("move");
+                updateGridDisplay();
+                updateGameInfo();
+                
+                // Vérifier si toutes les cases ont été visitées
+                if (state.board.moveCount === state.board.size * state.board.size) {
+                    endGame(true);
+                } else if (!hasValidMoves()) {
+                    // Ne plus mettre fin au jeu ici
+                    // Juste un feedback visuel
+                    const cells = document.querySelectorAll('.cell');
+                    cells.forEach(cell => {
+                        cell.classList.add('pulse');
+                    });
+                    setTimeout(() => {
+                        cells.forEach(cell => {
+                            cell.classList.remove('pulse');
+                        });
+                    }, 1000);
+                }
+            } else {
+                // Feedback visuel pour mouvement invalide
+                const cell = document.getElementById(`cell-${row}-${col}`);
+                if (cell) {
+                    cell.classList.add('invalid-move');
+                    setTimeout(() => {
+                        cell.classList.remove('invalid-move');
+                    }, 500);
+                }
+            }
+        }
+
+        function rewindMove() {
+            if (state.board.visited.length > 0) {
+                const lastMove = state.board.visited.pop(); // retire la dernière case
+                const { row, col } = lastMove;
+                state.board.grid[row][col].visited = false;
+                state.board.grid[row][col].visitOrder = null;
+                state.board.moveCount--;
+                state.board.current = state.board.visited.length > 0
+                    ? state.board.visited[state.board.visited.length - 1]
+                    : null;
+                updateGridDisplay();
+                updateGameInfo();
+            }
+        }
+
+        // Fonction pour terminer le jeu
+        async function endGame(won) {
+            clearInterval(state.timer.interval);
+            
+            state.result.won = won;
+            state.result.tokens = state.result.bet;
+            
+            if (won) {
+                let multiplier = 1;
+                switch(state.board.size) {
+                    case 5: multiplier = 2; break;
+                    case 6: multiplier = 3; break;
+                    case 8: multiplier = 5; break;
+                }
+                state.result.tokens = state.player.bet * multiplier - state.player.bet;
+                state.result.message = `Bravo ${state.player.pseudo}, vous avez gagné ${state.result.tokens} jetons !`;
+            } else {
+                state.result.message = `Dommage ${state.player.pseudo}, vous avez perdu ${state.player.tokens} jetons.`;
+            }
+            
+            const timeElapsed = 300 - state.timer.timeLeft;
+
+            // Sauvegarder le résultat
+            await saveGameResult(
+                state.game.id,
+                state.player.pseudo,
+                won ? 'Win' : 'Loss',
+                state.game.resetCount,
+                won ? state.result.tokens : -state.result.tokens,
+                state.board.size,
+                timeElapsed,
+                state.board.grid.map(row => row.map(cell => ({
+                    visited: cell.visited,
+                    order: cell.visitOrder
+                })))
+            );
+            
+            state.view = 'result';
+            render();
+        }
+
+        // Fonction pour réinitialiser la partie
+        function resetGame() {
+            state.board.visited = [];
+            state.board.current = null;
+            state.board.moveCount = 0;
+            state.game.resetCount++;
+            initBoard();
+            updateGridDisplay();
+            updateGameInfo();
+        }
+
+        // Fonction pour revenir à l'accueil
+        function goHome() {
+            clearInterval(state.timer.interval);
+            state.view = 'home';
+            render();
+        }
+
+        // Fonction pour formater le temps
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Fonction de rendu principal
+        function render() {
+            const root = document.getElementById('root');
+            
+            switch(state.view) {
+                case 'logs':
+                    renderLogs(root);
+                    break;
+                case 'home':
+                    renderHome(root);
+                    break;
+                case 'game':
+                    renderGame(root);
+                    break;
+                case 'result':
+                    renderResult(root);
+                    break;
+                case 'cheater':
+                    renderCheater(root);
+                    break;
+            }
+
+            detectCheating();
+        }
+
+        function playSound(name) {
+            const audio = new Audio(`sounds/${name}.mp3`);
+            audio.volume = 0.5; // volume entre 0 et 1
+            audio.play().catch(err => console.log("Audio bloqué par le navigateur", err));
+        }
+
+
+        function detectCheating() {
+            document.addEventListener("visibilitychange", () => {
+                if (document.visibilityState === "hidden" && state.view === "game") {
+                    // Stop timer
+                    clearInterval(state.timer.interval);
+
+                    // Marquer la partie comme perdue pour triche
+                    state.result.won = false;
+                    state.result.tokens = -state.player.bet;
+                    state.result.message = `Dommage ${state.player.pseudo}, vous avez été disqualifié pour triche.`;
+
+                    // Passer en vue "cheater"
+                    state.view = "cheater";
+                    render();
+                }
+            });
+        }
+
+        // Fonction pour afficher les logs
+        function showLogs() {
+            state.view = 'logs';
+            fetchGameLogs().then(logs => {
+                state.logs = logs;
+                render();
+            });
+        }
+
+        // Render de la mini grille (final)
+        function renderMiniGrid(finalGrid) {
+            if (!finalGrid) return '';
+            let html = '<div class="inline-block border border-gray-600 rounded overflow-hidden">';
+            for (let row = 0; row < finalGrid.length; row++) {
+                html += '<div class="flex">';
+                for (let col = 0; col < finalGrid[row].length; col++) {
+                    const cell = finalGrid[row][col];
+                    const bg = (row + col) % 2 === 0 ? 'bg-chessLight' : 'bg-chessDark';
+                    let content = '';
+                    if (cell.visited) {
+                        content = `<span class="text-[10px] font-bold">${cell.order}</span>`;
+                    }
+                    html += `<div class="w-5 h-5 flex items-center justify-center ${bg}">${content}</div>`;
+                }
+                html += '</div>';
+            }
+            html += '</div>';
+            return html;
+        }
+
+        function renderCheater(root) {
+            playSound("cheat");
+
+            root.innerHTML = `
+                <div class="max-w-2xl mx-auto">
+                    <div class="bg-red-900 rounded-2xl shadow-xl overflow-hidden p-8 text-center">
+                        <div class="text-6xl mb-6">🚫</div>
+                        <h2 class="text-3xl font-bold mb-4 text-red-400">Triche détectée !</h2>
+                        <p class="text-xl mb-6">Vous avez quitté la page pendant la partie.<br>
+                        Résultat : <span class="font-bold text-red-500">Disqualification</span></p>
+                        
+                        <button 
+                            id="homeCheaterBtn"
+                            class="px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white font-medium rounded-lg"
+                        >
+                            <i class="fas fa-home mr-2"></i>Retour à l'accueil
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('homeCheaterBtn').addEventListener('click', goHome);
+        }
+
+        // Rendu de la page des logs
+        function renderLogs(root) {
+            root.innerHTML = `
+                <div class="max-w-6xl mx-auto">
+                    <div class="bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
+                        <div class="bg-gradient-to-r from-amber-700 to-amber-900 p-6">
+                            <h2 class="text-3xl font-bold text-center">Historique des Parties</h2>
+                        </div>
+                        
+                        <div class="p-6">
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr class="bg-gray-700">
+                                            <th class="px-4 py-3 border border-gray-600">Game ID</th>
+                                            <th class="px-4 py-3 border border-gray-600">Player</th>
+                                            <th class="px-4 py-3 border border-gray-600">Result</th>
+                                            <th class="px-4 py-3 border border-gray-600">Number Reset</th>
+                                            <th class="px-4 py-3 border border-gray-600">Points</th>
+                                            <th class="px-4 py-3 border border-gray-600">Grille</th>
+                                            <th class="px-4 py-3 border border-gray-600">Temps</th>
+                                            <th class="px-4 py-3 border border-gray-600">Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${state.logs.map(log => `
+                                            <tr class="hover:bg-gray-700">
+                                                <td class="px-4 py-3 border border-gray-600 font-mono">${log.gameId}</td>
+                                                <td class="px-4 py-3 border border-gray-600">${log.player}</td>
+                                                <td class="px-4 py-3 border border-gray-600">
+                                                    <span class="px-2 py-1 rounded text-sm ${log.result === 'Win' ? 'bg-green-600' : 'bg-red-600'}">
+                                                        ${log.result}
+                                                    </span>
+                                                </td>
+                                                <td class="px-4 py-3 border border-gray-600 text-center">${log.resets}</td>
+                                                <td class="px-4 py-3 border border-gray-600 text-center ${log.points > 0 ? 'text-green-400' : 'text-red-400'}">
+                                                    ${log.points > 0 ? '+' : ''}${log.points}
+                                                </td>
+                                                <td class="relative px-4 py-3 border border-gray-600 text-center group">
+                                                    <span class="cursor-help">${log.gridSize}x${log.gridSize}</span>
+                                                    
+                                                    <div class="fixed z-50 hidden group-hover:block p-2 bg-gray-900 border border-gray-600 rounded-lg shadow-xl"
+                                                        style="min-width: max-content;">
+                                                        ${renderMiniGrid(log.finalGrid)}
+                                                    </div>
+                                                </td>
+                                                <td class="px-4 py-3 border border-gray-600 text-center">${formatTime(log.timeElapsed)}</td>
+                                                <td class="px-4 py-3 border border-gray-600 text-sm text-gray-400">
+                                                    ${new Date(log.timestamp).toLocaleString()}
+                                                </td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                                
+                                ${state.logs.length === 0 ? `
+                                    <div class="text-center py-8 text-gray-400">
+                                        <i class="fas fa-inbox text-4xl mb-4"></i>
+                                        <p>Aucune partie enregistrée</p>
+                                    </div>
+                                ` : ''}
+                            </div>
+                            
+                            <div class="mt-6 text-center">
+                                <button 
+                                    id="refreshLogsBtn"
+                                    class="px-6 py-3 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-lg mr-4"
+                                >
+                                    <i class="fas fa-sync-alt mr-2"></i>Actualiser
+                                </button>
+                                <button 
+                                    id="homeLogsBtn"
+                                    class="px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white font-medium rounded-lg"
+                                >
+                                    <i class="fas fa-home mr-2"></i>Accueil
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('refreshLogsBtn').addEventListener('click', showLogs);
+            document.getElementById('homeLogsBtn').addEventListener('click', goHome);
+
+            document.querySelectorAll('td.group').forEach(cell => {
+                const tooltip = cell.querySelector('div');
+                cell.addEventListener('mousemove', (e) => {
+                    if (tooltip) {
+                    tooltip.style.left = (e.pageX + 15) + 'px';
+                    tooltip.style.top = (e.pageY + 15) + 'px';
+                    }
+                });  
+            });
+
+        }
+
+        // Rendu de la page d'accueil
+        function renderHome(root) {
+            root.innerHTML = `
+                <div class="max-w-2xl mx-auto bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
+                    <div class="bg-gradient-to-r from-amber-700 to-amber-900 p-6 text-center">
+                        <h1 class="text-3xl md:text-4xl font-bold mb-2">Jeu du Cavalier</h1>
+                        <p class="text-amber-200">Visitez toutes les cases en respectant les règles du cavalier aux échecs</p>
+                    </div>
+                    
+                    <div class="p-6">
+                        <form id="playerForm" class="space-y-6">
+                            <div>
+                                <label class="block text-gray-300 mb-2 font-medium">Votre pseudo</label>
+                                <input 
+                                    type="text" 
+                                    id="pseudo" 
+                                    value="${state.player.pseudo}"
+                                    class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-white"
+                                    placeholder="Entrez votre pseudo"
+                                    required
+                                >
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-300 mb-2 font-medium">Nombre de jetons misés</label>
+                                <input 
+                                    type="number" 
+                                    id="bet" 
+                                    min="1"
+                                    value="${state.player.bet || ''}"
+                                    class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-white"
+                                    placeholder="Entrez votre mise"
+                                    required
+                                >
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-300 mb-2 font-medium">Taille de la grille</label>
+                                <select 
+                                    id="gridSize" 
+                                    class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-white"
+                                >
+                                    <option value="5" ${state.board.size === 5 ? 'selected' : ''}>5x5</option>
+                                    <option value="6" ${state.board.size === 6 ? 'selected' : ''}>6x6</option>
+                                    <option value="8" ${state.board.size === 8 ? 'selected' : ''}>8x8</option>
+                                    <option value="10" ${state.board.size === 10 ? 'selected' : ''}>Bonus: 10x10</option>
+                                    <option value="12" ${state.board.size === 12 ? 'selected' : ''}>Bonus: 12x12</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mt-8">
+                                <h3 class="text-xl font-semibold mb-4 text-center">Prévisualisation de la grille</h3>
+                                <div id="previewGrid" class="flex justify-center">
+                                    ${renderPreviewGrid(state.board.size)}
+                                </div>
+                            </div>
+                            
+                            <button 
+                                type="submit" 
+                                class="w-full py-4 bg-gradient-to-r from-amber-600 to-amber-800 hover:from-amber-700 hover:to-amber-900 text-white font-bold rounded-lg shadow-lg transform transition hover:scale-105 duration-300"
+                            >
+                                Lancer la partie
+                            </button>
+                            <button 
+                                type="button"
+                                id="logsBtn"
+                                class="w-full py-4 bg-gray-700 hover:bg-gray-600 text-white font-bold rounded-lg shadow-lg transform transition hover:scale-105 duration-300"
+                            >
+                                <i class="fas fa-chart-line mr-2"></i>Historique
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            `;
+            
+            // Ajout des écouteurs d'événements
+            document.getElementById('playerForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                state.player.pseudo = document.getElementById('pseudo').value.trim();
+                state.player.bet = parseInt(document.getElementById('bet').value);
+                state.board.size = parseInt(document.getElementById('gridSize').value);
+                
+                if (state.player.pseudo && state.player.bet > 0) {
+                    startGame();
+                }
+            });
+
+            document.getElementById('logsBtn').addEventListener('click', showLogs);
+            
+            document.getElementById('gridSize').addEventListener('change', (e) => {
+                state.board.size = parseInt(e.target.value);
+                document.getElementById('previewGrid').innerHTML = renderPreviewGrid(state.board.size);
+            });
+        }
+
+        // Fonction pour rendre la prévisualisation de la grille
+        function renderPreviewGrid(size) {
+            let gridHtml = '<div class="inline-block border-4 border-amber-800 rounded-lg overflow-hidden">';
+            
+            for (let row = 0; row < size; row++) {
+                gridHtml += '<div class="flex">';
+                for (let col = 0; col < size; col++) {
+                    const isLight = (row + col) % 2 === 0;
+                    const bgColor = isLight ? 'bg-chessLight' : 'bg-chessDark';
+                    gridHtml += `<div class="w-8 h-8 ${bgColor}"></div>`;
+                }
+                gridHtml += '</div>';
+            }
+            
+            gridHtml += '</div>';
+            return gridHtml;
+        }
+
+        // Rendu de la page de jeu
+        function renderGame(root) {
+            root.innerHTML = `
+                <div class="max-w-4xl mx-auto">
+                    <div class="bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
+                        <!-- En-tête de jeu -->
+                        <div class="bg-gradient-to-r from-gray-900 to-gray-800 p-4 md:p-6">
+                            <div class="flex flex-wrap justify-between items-center gap-4">
+                                <div>
+                                    <h2 class="text-xl font-bold">${state.player.pseudo}</h2>
+                                    <p class="text-gray-400">Mise: ${state.player.bet} jetons</p>
+                                </div>
+                                
+                                <div class="text-center">
+                                    <div class="text-lg font-semibold">Grille ${state.board.size}x${state.board.size}</div>
+                                    <div class="text-gray-400 cases-visited">Cases visitées: ${state.board.moveCount}/${state.board.size * state.board.size}</div>
+                                </div>
+                                
+                                <div class="flex items-center gap-2">
+                                    <i class="fas fa-clock text-xl"></i>
+                                    <div class="timer-display text-2xl font-mono ${state.timer.isCritical ? 'timer-critical' : 'text-white'}">
+                                        ${formatTime(state.timer.timeLeft)}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Grille de jeu -->
+                        <div class="p-4 md:p-6 flex justify-center">
+                            <div class="inline-block border-4 border-amber-800 rounded-lg overflow-hidden">
+                                ${renderGameGrid()}
+                            </div>
+                        </div>
+                        
+                        <!-- Boutons de contrôle -->
+                        <div class="p-4 md:p-6 flex justify-center gap-4">
+                            <button 
+                                id="resetBtn"
+                                class="px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white font-medium rounded-lg transition duration-300"
+                            >
+                                <i class="fas fa-redo mr-2"></i>Réinitialiser
+                            </button>
+                            <button 
+                                id="rewindBtn"
+                                class="px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white font-medium rounded-lg transition duration-300"
+                            >
+                                <i class="fas fa-undo mr-2"></i>Annuler le coup
+                            </button>
+                            <button 
+                                id="homeBtn"
+                                class="px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white font-medium rounded-lg transition duration-300"
+                            >
+                                <i class="fas fa-home mr-2"></i>Accueil
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 text-center text-gray-400">
+                        <p class="mb-2">Règles: Le cavalier se déplace en "L" (2 cases dans une direction, 1 case perpendiculairement)</p>
+                        <p>Cliquez sur une case pour commencer, puis sur les cases valides pour vous déplacer</p>
+                    </div>
+                </div>
+            `;
+            
+            // Ajout des écouteurs d'événements
+            document.querySelectorAll('.cell').forEach(cell => {
+                cell.addEventListener('click', (e) => {
+                    const [row, col] = e.currentTarget.id.replace('cell-', '').split('-').map(Number);
+                    makeMove(row, col);
+                });
+            });
+            
+            document.getElementById('resetBtn').addEventListener('click', resetGame);
+            document.getElementById('rewindBtn').addEventListener('click', rewindMove);
+            document.getElementById('homeBtn').addEventListener('click', goHome);
+        }
+
+        // Fonction pour rendre la grille de jeu
+        function renderGameGrid() {
+            let gridHtml = '';
+            
+            for (let row = 0; row < state.board.size; row++) {
+                gridHtml += '<div class="flex">';
+                for (let col = 0; col < state.board.size; col++) {
+                    const cell = state.board.grid[row][col];
+                    const isLight = (row + col) % 2 === 0;
+                    const bgColor = isLight ? 'bg-chessLight' : 'bg-chessDark';
+                    
+                    let cellClasses = `cell w-12 h-12 md:w-16 md:h-16 flex items-center justify-center relative ${bgColor} cursor-pointer transition-all duration-200 hover:opacity-90`;
+                    
+                    // Ajout de classes spéciales
+                    if (cell.visited) {
+                        cellClasses += ' bg-visited';
+                    }
+                    
+                    gridHtml += `
+                        <div id="cell-${row}-${col}" class="${cellClasses}">
+                            ${cell.visited ? `<span class="visited-number">${cell.visitOrder}</span>` : ''}
+                            ${state.board.current && state.board.current.row === row && state.board.current.col === col ? 
+                              '<div class="knight-icon">🐴</div>' : ''}
+                        </div>
+                    `;
+                }
+                gridHtml += '</div>';
+            }
+            
+            return gridHtml;
+        }
+
+        // Rendu de la page de résultat
+        function renderResult(root) {
+            if(state.result.won)
+                playSound("victory");
+            else
+                playSound("lose");
+
+            root.innerHTML = `
+                <div class="max-w-2xl mx-auto">
+                    <div class="bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
+                        <div class="p-8 text-center">
+                            <div class="text-6xl mb-6">
+                                ${state.result.won ? '🏆' : '😢'}
+                            </div>
+                            
+                            <h2 class="text-2xl md:text-3xl font-bold mb-4">
+                                ${state.result.won ? 'Victoire !' : 'Défaite !'}
+                            </h2>
+                            
+                            <p class="text-xl mb-8">
+                                ${state.result.message}
+                            </p>
+                            
+                            <div class="bg-gray-700 rounded-xl p-6 mb-8">
+                                <div class="grid grid-cols-2 gap-4 max-w-md mx-auto">
+                                    <div class="text-gray-400">Pseudo:</div>
+                                    <div class="font-medium">${state.player.pseudo}</div>
+                                    
+                                    <div class="text-gray-400">Mise:</div>
+                                    <div class="font-medium">${state.player.bet} jetons</div>
+                                    
+                                    <div class="text-gray-400">Grille:</div>
+                                    <div class="font-medium">${state.board.size}x${state.board.size}</div>
+                                    
+                                    <div class="text-gray-400">Résultat:</div>
+                                    <div class="font-medium ${state.result.won ? 'text-green-400' : 'text-red-400'}">
+                                        ${state.result.won ? 'Gagné' : 'Perdu'}
+                                    </div>
+                                    
+                                    <div class="text-gray-400">Jetons:</div>
+                                    <div class="font-medium ${state.result.won ? 'text-green-400' : 'text-red-400'}">
+                                        ${state.result.won ? '+' : '-'}${state.result.tokens}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                                <button 
+                                    id="replayBtn"
+                                    class="px-6 py-3 bg-gradient-to-r from-amber-600 to-amber-800 hover:from-amber-700 hover:to-amber-900 text-white font-bold rounded-lg shadow-lg transform transition hover:scale-105 duration-300"
+                                >
+                                    <i class="fas fa-redo mr-2"></i>Rejouer
+                                </button>
+                                
+                                <button 
+                                    id="homeResultBtn"
+                                    class="px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white font-bold rounded-lg shadow-lg transform transition hover:scale-105 duration-300"
+                                >
+                                    <i class="fas fa-home mr-2"></i>Retour à l'accueil
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Ajout des écouteurs d'événements
+            document.getElementById('replayBtn').addEventListener('click', () => {
+                startGame();
+            });
+            
+            document.getElementById('homeResultBtn').addEventListener('click', goHome);
+        }
+
+        // Initialisation de l'application
+        // render(); // This is now called after API check
+    </script>
+    <footer class="mt-2 mb-6 text-center text-gray-400 text-sm">
+        <p>Fait avec <i class="fas fa-heart text-red-500"></i> par <a class="text-white font-bold" href="https://cupcode.fr/">Cup'Code</a></p>
+    </footer>
+</body>
+</html>
