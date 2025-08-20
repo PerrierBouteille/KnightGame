@@ -450,11 +450,11 @@
                     // Juste un feedback visuel
                     const cells = document.querySelectorAll('.cell');
                     cells.forEach(cell => {
-                        cell.classList.add('pulse');
+                        cell.classList.add('invalid-move');
                     });
                     setTimeout(() => {
                         cells.forEach(cell => {
-                            cell.classList.remove('pulse');
+                            cell.classList.remove('invalid-move');
                         });
                     }, 1000);
                 }
