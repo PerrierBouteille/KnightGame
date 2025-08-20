@@ -30,7 +30,7 @@ Le **Jeu du Cavalier** est un puzzle stratégique où le joueur doit visiter tou
 1. **Clonez le projet**
    ```bash
    git clone <repository-url>
-   cd jeu-du-cavalier
+   cd KnightGame
    ```
 
 2. **Démarrez le serveur**
