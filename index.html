@@ -32,6 +32,8 @@
             font-family: 'Montserrat', sans-serif;
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             min-height: 100vh;
+            overflow-y: auto;
+            overscroll-behavior-y: none;
         }
         
         .game-title {
@@ -156,7 +158,7 @@
         }
     </style>
 </head>
-<body class="min-h-screen text-white">
+<body class="min-h-screen text-white overflow-x-hidden">
     <div class="relative"> <!--overflow-hidden-->
         <!-- Animated background elements -->
         <div class="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-purple-500 opacity-20 blur-3xl"></div>
@@ -1051,7 +1053,7 @@
         // Initialisation de l'application
         // render(); // This is now called after API check
     </script>
-    <footer class="mt-2 mb-6 text-center text-gray-400 text-sm">
+    <footer class="mb-6 text-center text-gray-400 text-sm">
         <p>Fait avec <i class="fas fa-heart text-red-500"></i> par <a class="text-white font-bold" href="https://cupcode.fr/">Cup'Code</a></p>
     </footer>
 </body>
