@@ -10,6 +10,16 @@ const DATA_FILE = path.join(__dirname, 'games.json');
 app.use(cors());
 app.use(express.json());
 
+// Server status
+app.get('/api/health', async (req, res) => {
+    res.status(200).json({ info: 'Server online' });
+});
+
+// Game page
+app.get('/', async (req, res) => {
+    res.sendFile(path.join(__dirname,'/index.html'));
+});
+
 // Lire les données
 async function readGames() {
     try {
@@ -34,10 +44,6 @@ app.get('/api/games', async (req, res) => {
         res.status(500).json({ error: 'Erreur serveur' });
     }
 });
-
-app.get('/api/health', async (req, res) => {
-    res.status(200).json({ info: 'Server online' });
-})
 
 // POST nouveau jeu
 app.post('/api/games', async (req, res) => {
